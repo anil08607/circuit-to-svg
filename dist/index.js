@@ -5383,7 +5383,6 @@ function createSvgObjectsFromPcbTrace(trace, ctx) {
   if (!trace.route || !Array.isArray(trace.route) || trace.route.length < 2)
     return [];
   const svgObjects = [];
-  const standaloneViaPositionKeys = getStandaloneViaPositionKeys(ctx);
   const pourMaskIdByLayer = ctx.copperPourTraceMaskIdsByLayer ??= /* @__PURE__ */ new Map();
   const drawableSegments = [];
   for (const originalSegment of getPcbTraceSegments(trace.route)) {
@@ -5510,7 +5509,7 @@ function createSvgObjectsFromPcbTrace(trace, ctx) {
   }
   for (const [index, point] of trace.route.entries()) {
     if (!point || point.route_type !== "via") continue;
-    if (standaloneViaPositionKeys.has(getPositionKey(point))) continue;
+    if (getStandaloneViaPositionKeys(ctx).has(getPositionKey(point))) continue;
     svgObjects.push(
       ...createSvgObjectsFromPcbVia(
         createSyntheticViaFromRoutePoint(trace, point, index, ctx),
@@ -5614,7 +5613,7 @@ function getRouteViaDiameters(board, adjacentTraceWidth) {
   };
 }
 function getStandaloneViaPositionKeys(ctx) {
-  return new Set(
+  return ctx.standaloneViaPositionKeys ??= new Set(
     ctx.circuitJson?.filter((elm) => elm.type === "pcb_via").map((via) => getPositionKey(via)) ?? []
   );
 }

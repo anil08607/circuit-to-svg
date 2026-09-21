@@ -133,6 +133,7 @@ interface PcbContext {
      */
     usedCopperPourTraceMaskIds?: Set<string>;
     copperPourTraceMaskIdsByLayer?: Map<string, string | undefined>;
+    standaloneViaPositionKeys?: Set<string>;
 }
 declare function convertCircuitJsonToPcbSvg(circuitJson: AnyCircuitElement[], options?: PcbSvgOptions): string;
 /**
