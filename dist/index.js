@@ -5384,7 +5384,7 @@ function createSvgObjectsFromPcbTrace(trace, ctx) {
     return [];
   const svgObjects = [];
   const standaloneViaPositionKeys = getStandaloneViaPositionKeys(ctx);
-  const pourMaskIdByLayer = /* @__PURE__ */ new Map();
+  const pourMaskIdByLayer = ctx.copperPourTraceMaskIdsByLayer ??= /* @__PURE__ */ new Map();
   const drawableSegments = [];
   for (const originalSegment of getPcbTraceSegments(trace.route)) {
     let segment = originalSegment;

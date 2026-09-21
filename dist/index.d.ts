@@ -132,6 +132,7 @@ interface PcbContext {
      * hide the portions covered by copper pours. Used to emit mask defs.
      */
     usedCopperPourTraceMaskIds?: Set<string>;
+    copperPourTraceMaskIdsByLayer?: Map<string, string | undefined>;
 }
 declare function convertCircuitJsonToPcbSvg(circuitJson: AnyCircuitElement[], options?: PcbSvgOptions): string;
 /**
